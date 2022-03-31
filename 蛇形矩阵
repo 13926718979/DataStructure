@@ -1,0 +1,69 @@
+#include <iostream>
+#include <cstdio>
+#include <algorithm>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <queue>
+#include <stack>
+using namespace std;
+
+int main() {
+    int n;
+    while (cin >> n) {
+        int a[n][n];
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                cin >> a[i][j];
+            }
+        }
+        int m[n][n];
+        memset(m, 0, n * n * 4);
+        int p = 1;
+        int i = 0, j = 0;
+        for (int number = 1; number <= n; number++) {
+            for (int k = 1; k <= number; k++) {
+                m[i][j] = p++;
+                if (k != number) {
+                    if (number % 2 == 0)
+                        i--, j++;
+                    else
+                        i++, j--;
+                } else {
+                    if (number % 2 == 0) {
+                        j++;
+                    } else {
+                        i++;
+                    }
+                }
+            }
+        }
+        if (n % 2 == 1)
+            i--, j++;
+        else
+            i++, j--;
+        for (int r = n - 1; r >= 1; r--) {
+            for (int k = 1; k <= r; k++) {
+                m[i][j] = p++;
+                if (k != r) {
+                    if (r % 2 == 0)
+                        i--, j++;
+                    else
+                        i++, j--;
+                } else {
+                    if (number % 2 == 0) {
+                        i++;
+                    } else {
+                        j++;
+                    }
+                }
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                printf("%3d", m[i][j]);
+            }
+            cout << endl;
+        }
+    }
+}
